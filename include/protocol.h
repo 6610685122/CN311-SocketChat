@@ -12,7 +12,7 @@
 #include <time.h>
 
 #define PORT 12345
-#define MAX_CLIENTS 2
+#define MAX_CLIENTS 10
 #define BUFFER_SIZE 1024
 #define NAME_LEN 50
 

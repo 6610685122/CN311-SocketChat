@@ -28,26 +28,26 @@ char institute[] = "Thammasat school of Engineering";
 
 void *thread_print_name(void *arg)
 {
-    printf("[Thread %lu] Name: %s\n", pthread_self(), student_name);
+    printf("[Thread %lu] Name: %s\n", (unsigned long)pthread_self(), student_name);
     return NULL;
 }
 
 void *thread_print_surname(void *arg)
 {
-    printf("[Thread %lu] Surname: %s\n", pthread_self(), student_surname);
+    printf("[Thread %lu] Surname: %s\n", (unsigned long)pthread_self(), student_surname);
     return NULL;
 }
 
 void *thread_print_institute(void *arg)
 {
-    printf("[Thread %lu] Institute: %s\n", pthread_self(), institute);
+    printf("[Thread %lu] Institute: %s\n", (unsigned long)pthread_self(), institute);
     return NULL;
 }
 
 void *thread_count_chars(void *arg)
 {
     int count = strlen(institute);
-    printf("[Thread %lu] Character count of Institute: %d\n", pthread_self(), count);
+    printf("[Thread %lu] Character count of Institute: %d\n", (unsigned long)pthread_self(), count);
     return NULL;
 }
 
