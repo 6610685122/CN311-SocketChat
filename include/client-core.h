@@ -1,6 +1,7 @@
 #ifndef CLIENT_CORE_H
 #define CLIENT_CORE_H
 
+<<<<<<< HEAD
 // ฟังก์ชันหลักสำหรับเริ่มต้นระบบ Client และเชื่อมต่อไปยัง Server
 void start_client(const char *server_ip, int port);
 
@@ -9,5 +10,11 @@ void *receive_handler(void *socket_desc);
 
 // ฟังก์ชันสำหรับรอรับ Input จากคีย์บอร์ดแล้วส่งไปยัง Server (Write Thread / Main Loop)
 void *send_handler(void *socket_desc);
+=======
+#include "protocol.h"
+
+void *receive_handler(void *arg);
+void *send_handler(void *arg);
+>>>>>>> origin/protocol
 
 #endif
