@@ -26,3 +26,11 @@ A real-time terminal chatroom for CN311 Operating Systems course.
 
 ## Commands
 - `/exit`: Exit the chat.
+
+---
+
+## สมาชิก
+
+นายปรัญชัย ติ้มขลิบ         6610685239
+นายชยวัฒน์ กาญจนะแก้ว     6610685122
+นายกันตพงศ์ วิชชุเกรียงไกร   6610625045
