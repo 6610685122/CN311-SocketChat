@@ -19,9 +19,6 @@
 typedef enum
 {
     MSG_CHAT,
-    MSG_HW2,
-    MSG_HW4_REQ,
-    MSG_HW4_RES,
     MSG_EXIT
 } MessageType;
 
@@ -36,11 +33,5 @@ typedef struct
 void get_current_timestamp(char *buffer);
 void serialize_packet(ChatPacket *pkt, char *buffer);
 void deserialize_packet(char *buffer, ChatPacket *pkt);
-
-int convert_be_to_ad(int be_year);
-int extract_and_convert_year(const char *input_msg);
-
-void run_hw2_part1();
-void run_hw2_part2(long max_value);
 
 #endif

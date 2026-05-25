@@ -11,28 +11,8 @@ void *receive_handler(void *arg)
     while (recv(sock, buffer, sizeof(ChatPacket), 0) > 0)
     {
         deserialize_packet(buffer, &pkt);
-
-        if (pkt.type == MSG_HW4_RES)
-        {
-            printf("\n[Server] Converted Year (AD): %s\n", pkt.message);
-            printf("[System] Sending 'Bye' to server...\n");
-
-            ChatPacket bye_pkt;
-            bye_pkt.type = MSG_EXIT;
-            strcpy(bye_pkt.sender_name, client_name);
-            strcpy(bye_pkt.message, "Bye");
-            get_current_timestamp(bye_pkt.timestamp);
-            serialize_packet(&bye_pkt, buffer);
-            send(sock, buffer, sizeof(ChatPacket), 0);
-
-            printf("[System] Disconnecting...\n");
-            exit(0);
-        }
-        else
-        {
-            printf("\r[%s] %s: %s\n> ", pkt.timestamp, pkt.sender_name, pkt.message);
-            fflush(stdout);
-        }
+        printf("\r[%s] %s: %s\n> ", pkt.timestamp, pkt.sender_name, pkt.message);
+        fflush(stdout);
     }
 
     return NULL;
@@ -50,6 +30,8 @@ void *send_handler(void *arg)
         fgets(buffer, BUFFER_SIZE, stdin);
         buffer[strcspn(buffer, "\n")] = 0;
 
+        if (strlen(buffer) == 0) continue;
+
         if (strcmp(buffer, "/exit") == 0)
         {
             pkt.type = MSG_EXIT;
@@ -59,20 +41,6 @@ void *send_handler(void *arg)
             serialize_packet(&pkt, pkt_buffer);
             send(sock, pkt_buffer, sizeof(ChatPacket), 0);
             exit(0);
-        }
-        else if (strcmp(buffer, "/hw2") == 0)
-        {
-            run_hw2_part1();
-            run_hw2_part2(100000000); // MAX_VALUE > 100,000,000
-        }
-        else if (strncmp(buffer, "/hw4 ", 5) == 0)
-        {
-            pkt.type = MSG_HW4_REQ;
-            strcpy(pkt.sender_name, client_name);
-            strcpy(pkt.message, buffer + 5);
-            get_current_timestamp(pkt.timestamp);
-            serialize_packet(&pkt, pkt_buffer);
-            send(sock, pkt_buffer, sizeof(ChatPacket), 0);
         }
         else
         {
@@ -105,6 +73,7 @@ int main()
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
 
+    // TODO: Update this IP to your friend's Hamachi IP
     if (inet_pton(AF_INET, "25.20.172.81", &serv_addr.sin_addr) <= 0)
     {
         printf("\nInvalid address/ Address not supported \n");

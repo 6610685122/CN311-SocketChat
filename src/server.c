@@ -57,29 +57,6 @@ void *handle_client(void *arg)
             printf("[Server] Client %s disconnected\n", pkt.sender_name);
             break;
         }
-        else if (pkt.type == MSG_HW4_REQ)
-        {
-            printf("[Server] HW4 Request from %s: %s\n", pkt.sender_name, pkt.message);
-
-            // Send acknowledgement
-            ChatPacket ack_pkt;
-            ack_pkt.type = MSG_CHAT;
-            strcpy(ack_pkt.sender_name, "Server");
-            strcpy(ack_pkt.message, "Server received");
-            get_current_timestamp(ack_pkt.timestamp);
-            serialize_packet(&ack_pkt, buffer);
-            send(fd, buffer, sizeof(ChatPacket), 0);
-
-            // Convert year
-            int ad_year = extract_and_convert_year(pkt.message);
-            ChatPacket res_pkt;
-            res_pkt.type = MSG_HW4_RES;
-            strcpy(res_pkt.sender_name, "Server");
-            sprintf(res_pkt.message, "%d", ad_year);
-            get_current_timestamp(res_pkt.timestamp);
-            serialize_packet(&res_pkt, buffer);
-            send(fd, buffer, sizeof(ChatPacket), 0);
-        }
         else
         {
             printf("[%s] %s: %s\n", pkt.timestamp, pkt.sender_name, pkt.message);
